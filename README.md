@@ -37,32 +37,26 @@ dotnet test StockTrace.sln --configuration Release --no-build
 To build and test everything, including the frontend testing UI:
 
 ```powershell
-.\build-all.ps1
+cd frontend/testing-ui
+npm install
+npm run build
 ```
 
 ## Run locally
 
 The API defaults to SQL Server on `localhost` and database `StockTraceDb`.
 
-Fastest way to run both backend and frontend:
-
-```powershell
-.\start-dev.ps1
-```
-
-To stop the development processes:
-
-```powershell
-.\stop-dev.ps1
-```
-
-Manual backend run:
-
 ```powershell
 dotnet run --project src/StockTrace.Api
 ```
 
 The backend is self-setup by default. On first startup it creates the database, applies EF Core migrations, and seeds required demo data when `Database:InitializeOnStartup` is `true`.
+
+Swagger:
+
+```text
+http://localhost:5133/swagger
+```
 
 If the port differs, use the port printed by `dotnet run`.
 
@@ -79,8 +73,6 @@ Open:
 ```text
 http://127.0.0.1:5173
 ```
-
-For a focused setup guide, see [docs/SETUP.md](docs/SETUP.md).
 
 ## Persistence
 
@@ -102,7 +94,7 @@ Startup seeding creates:
 - Product: `SKU-001` / `Sample Product` with a default low-stock threshold of `10`
 - Demo purchase receipt: `PR-DEMO-001` with 50 units in the main warehouse
 
-IDs are generated at seed time. For manual testing, read the IDs from the database or use the Postman guide in [docs/POSTMAN_TESTING_GUIDE.md](docs/POSTMAN_TESTING_GUIDE.md).
+IDs are generated at seed time. For manual testing, use the master-data endpoints to read suppliers, warehouses, products, and categories before creating purchases, sales, or transfers.
 
 The seed process is idempotent and checks business keys before inserting records, so repeated application startup does not duplicate seeded data.
 
@@ -130,7 +122,17 @@ The seed process is idempotent and checks business keys before inserting records
 All API endpoints are protected by JWT authentication except `POST /api/auth/login`.
 Swagger supports bearer tokens through the `Authorize` button.
 
-Testing users are documented in [docs/TEST_USERS.txt](docs/TEST_USERS.txt). These credentials are for local testing only. The same users are configured in `Authentication:TestUsers` inside `src/StockTrace.Api/appsettings.json`, so reviewers can adjust them without changing code.
+Testing users are configured in `Authentication:TestUsers` inside `src/StockTrace.Api/appsettings.json`, so reviewers can adjust them without changing code. These credentials are for local testing only.
+
+Default users:
+
+| Username | Password | Role |
+| --- | --- | --- |
+| `admin` | `Admin@12345` | `Admin` |
+| `warehouse.manager` | `Warehouse@12345` | `WarehouseManager` |
+| `sales.user` | `Sales@12345` | `SalesUser` |
+| `reporter` | `Reporter@12345` | `Reporter` |
+| `inventory.viewer` | `Viewer@12345` | `InventoryViewer` |
 
 1. Call `POST /api/auth/login` with a username and password.
 2. Copy the returned `accessToken`.
@@ -171,9 +173,20 @@ Authorization is permission-based. Roles are only a convenient grouping for perm
 - Purchase receipts, sales, transfers, lots, balances, and movements are never soft-deleted.
 - Master data uses soft delete semantics, while historical documents keep their relationships visible for audit and reporting.
 
-## Manual testing
+## Manual testing flow
 
-Use [docs/POSTMAN_TESTING_GUIDE.md](docs/POSTMAN_TESTING_GUIDE.md) for a full Postman sequence that starts with seeded master data, receives stock, sells stock, transfers stock, checks availability, and verifies inventory movement reporting.
+1. Login with `POST /api/auth/login`.
+2. Read seeded IDs from:
+   - `GET /api/master-data/suppliers`
+   - `GET /api/master-data/warehouses`
+   - `GET /api/master-data/products`
+   - `GET /api/master-data/categories`
+3. Receive stock with `POST /api/purchase-receipts`.
+4. Check availability with `GET /api/inventory/availability`.
+5. Create sales with `POST /api/sales`.
+6. Create transfers with `POST /api/stock-transfers`.
+7. Run or export inventory movement reports.
+8. Connect the testing UI realtime page to verify SignalR stock-change and low-stock events.
 
 ## Configuration
 
