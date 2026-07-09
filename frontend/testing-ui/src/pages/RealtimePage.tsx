@@ -21,8 +21,10 @@ export function RealtimePage({ accessToken }: { accessToken: string }) {
     if (connectionRef.current?.state === HubConnectionState.Connected) return;
 
     const connection = new HubConnectionBuilder()
-      .withUrl(apiUrl('/hubs/low-stock'), { accessTokenFactory: () => accessToken })
-      .withAutomaticReconnect()
+        .withUrl(apiUrl('/hubs/low-stock'), {
+            accessTokenFactory: () => accessToken,
+            withCredentials: false
+        }).withAutomaticReconnect()
       .build();
 
     connection.on('StockChanged', (payload: StockChangedAlert) => {
