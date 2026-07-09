@@ -1,0 +1,251 @@
+:root {
+  color: #1f2937;
+  background: #f3f4f6;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 1px solid #1f2937;
+  background: #1f2937;
+  color: #ffffff;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #111827;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.86rem;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.login-panel {
+  width: min(430px, 100%);
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+.sidebar {
+  background: #ffffff;
+  border-right: 1px solid #d1d5db;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar h1 {
+  font-size: 1.2rem;
+  margin: 0 0 0.25rem;
+}
+
+.sidebar p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sidebar nav button {
+  background: #ffffff;
+  color: #1f2937;
+  text-align: left;
+}
+
+.sidebar nav button.active {
+  background: #1f2937;
+  color: #ffffff;
+}
+
+main {
+  padding: 1.25rem;
+  overflow: auto;
+}
+
+.section {
+  display: grid;
+  gap: 1rem;
+}
+
+.section-heading h2 {
+  margin: 0 0 0.25rem;
+}
+
+.section-heading p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-card {
+  min-height: 110px;
+  background: #ffffff;
+  color: #1f2937;
+  text-align: left;
+  border: 1px solid #d1d5db;
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.dashboard-card:hover {
+  background: #f9fafb;
+}
+
+.dashboard-card span {
+  color: #6b7280;
+}
+
+.panel {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  padding: 1rem;
+  border-radius: 6px;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.panel h3,
+.panel h2 {
+  margin: 0;
+}
+
+.panel h3 span {
+  font-size: 0.86rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.form-panel {
+  align-content: start;
+}
+
+.field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.field span {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.field input,
+.field select {
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 0.55rem;
+  background: #ffffff;
+  color: #1f2937;
+  min-width: 0;
+}
+
+.muted-panel {
+  color: #6b7280;
+}
+
+.success-panel {
+  border-color: #16a34a;
+}
+
+.error-panel {
+  border-color: #dc2626;
+}
+
+.error-text {
+  color: #b91c1c;
+  white-space: pre-wrap;
+}
+
+.actions {
+  grid-template-columns: auto auto auto auto 1fr;
+  align-items: center;
+}
+
+.status {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  background: #e5e7eb;
+}
+
+.status.connected {
+  background: #dcfce7;
+}
+
+.status.reconnecting {
+  background: #fef3c7;
+}
+
+.event-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.event-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 0.75rem;
+}
+
+@media (max-width: 850px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid #d1d5db;
+  }
+
+  .grid.two,
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,80 @@
+﻿StockTrace Inventory Module - Testing Users
+===========================================
+
+IMPORTANT:
+This file is for local testing only. Do not store real production passwords in text files.
+
+Source of truth:
+The same users are configured under Authentication:TestUsers in src/StockTrace.Api/appsettings.json.
+
+1. Username: admin
+   Password: Admin@12345
+   Role: Admin
+   Permissions:
+   - MasterData.Read
+   - MasterData.ManageThresholds
+   - Inventory.Read
+   - PurchaseReceipts.Read
+   - PurchaseReceipts.Create
+   - Sales.Read
+   - Sales.Create
+   - StockTransfers.Read
+   - StockTransfers.Create
+   - Reports.Read
+   - Reports.Export
+   - Realtime.Read
+   Can do:
+   Full access to every module, including threshold configuration and Excel export.
+
+2. Username: warehouse.manager
+   Password: Warehouse@12345
+   Role: WarehouseManager
+   Permissions:
+   - MasterData.Read
+   - MasterData.ManageThresholds
+   - Inventory.Read
+   - PurchaseReceipts.Read
+   - PurchaseReceipts.Create
+   - StockTransfers.Read
+   - StockTransfers.Create
+   - Realtime.Read
+   Can do:
+   Receive stock, transfer stock, manage low-stock thresholds, view inventory, and monitor realtime events.
+   Cannot create sales or view/export reports.
+
+3. Username: sales.user
+   Password: Sales@12345
+   Role: SalesUser
+   Permissions:
+   - MasterData.Read
+   - Inventory.Read
+   - Sales.Read
+   - Sales.Create
+   - Realtime.Read
+   Can do:
+   View products/warehouses, check inventory, create/read sales, and monitor realtime events.
+   Cannot receive stock, transfer stock, configure thresholds, or view reports.
+
+4. Username: reporter
+   Password: Reporter@12345
+   Role: Reporter
+   Permissions:
+   - MasterData.Read
+   - Inventory.Read
+   - Reports.Read
+   - Reports.Export
+   - Realtime.Read
+   Can do:
+   View master data, check inventory, read reports, export reports to Excel, and monitor realtime events.
+   Cannot create purchase receipts, sales, transfers, or manage thresholds.
+
+5. Username: inventory.viewer
+   Password: Viewer@12345
+   Role: InventoryViewer
+   Permissions:
+   - MasterData.Read
+   - Inventory.Read
+   - Realtime.Read
+   Can do:
+   Read-only access to master data, inventory availability, and realtime monitor.
+   Cannot create or update operational data and cannot view/export reports.
