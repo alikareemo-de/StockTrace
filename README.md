@@ -10,7 +10,7 @@ Production-oriented inventory module built with ASP.NET Core and Clean Architect
 - Stock transfers between warehouses while preserving lot identity and cost.
 - Inventory movement reporting with filtering, paging, Excel export, and SQL indexes for the main query paths.
 - Real-time stock-change and low-stock notifications through SignalR.
-- JWT authentication, role/permission authorization, and Swagger bearer-token support.
+- JWT authentication, role/permission authorization bearer-token support.
 - Read-only master-data endpoints and warehouse-product low-stock threshold configuration.
 - SQL Server persistence through EF Core migrations and deterministic startup seeding.
 - Unit and integration tests covering the main business workflows, concurrency, reporting, transfers, and SignalR notifications.
@@ -63,12 +63,6 @@ dotnet run --project src/StockTrace.Api
 ```
 
 The backend is self-setup by default. On first startup it creates the database, applies EF Core migrations, and seeds required demo data when `Database:InitializeOnStartup` is `true`.
-
-When the API starts, Swagger is available at:
-
-```text
-http://localhost:5133/swagger
-```
 
 If the port differs, use the port printed by `dotnet run`.
 
