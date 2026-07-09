@@ -130,6 +130,9 @@ if (app.Configuration.GetValue<bool>("Database:InitializeOnStartup"))
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseCors(CorsOptions.PolicyName);
 app.UseAuthentication();
 app.UseAuthorization();

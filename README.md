@@ -58,6 +58,12 @@ Swagger:
 http://localhost:5133/swagger
 ```
 
+Swagger is enabled for local API exploration. Use `POST /api/auth/login` to get a JWT, then click the `Authorize` button in Swagger and enter:
+
+```text
+Bearer <accessToken>
+```
+
 If the port differs, use the port printed by `dotnet run`.
 
 Testing UI:
