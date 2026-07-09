@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37216.2
@@ -16,6 +16,45 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTrace.UnitTests", "tests\StockTrace.UnitTests\StockTrace.UnitTests.csproj", "{96C79CE6-0AF9-400A-AA15-CAE21CEFCED9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTrace.IntegrationTests", "tests\StockTrace.IntegrationTests\StockTrace.IntegrationTests.csproj", "{5C944DB5-4E3F-4C83-9D39-435AB266B322}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A6A6A9E1-5EBF-43C1-81C7-43D88EFDD601}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{B2D9CB30-01B6-4302-B802-606E7D3947B4}"
+	ProjectSection(SolutionItems) = preProject
+		frontend\testing-ui\.env.development = frontend\testing-ui\.env.development
+		frontend\testing-ui\.env.example = frontend\testing-ui\.env.example
+		frontend\testing-ui\index.html = frontend\testing-ui\index.html
+		frontend\testing-ui\package-lock.json = frontend\testing-ui\package-lock.json
+		frontend\testing-ui\package.json = frontend\testing-ui\package.json
+		frontend\testing-ui\README.md = frontend\testing-ui\README.md
+		frontend\testing-ui\tsconfig.json = frontend\testing-ui\tsconfig.json
+		frontend\testing-ui\vite.config.ts = frontend\testing-ui\vite.config.ts
+		frontend\testing-ui\src\App.tsx = frontend\testing-ui\src\App.tsx
+		frontend\testing-ui\src\config.ts = frontend\testing-ui\src\config.ts
+		frontend\testing-ui\src\main.tsx = frontend\testing-ui\src\main.tsx
+		frontend\testing-ui\src\models.ts = frontend\testing-ui\src\models.ts
+		frontend\testing-ui\src\styles.css = frontend\testing-ui\src\styles.css
+		frontend\testing-ui\src\api\client.ts = frontend\testing-ui\src\api\client.ts
+		frontend\testing-ui\src\api\services.ts = frontend\testing-ui\src\api\services.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C6F51C87-7C2A-4F61-BF44-37A8D8D1D8F8}"
+	ProjectSection(SolutionItems) = preProject
+		docs\POSTMAN_TESTING_GUIDE.md = docs\POSTMAN_TESTING_GUIDE.md
+		docs\SETUP.md = docs\SETUP.md
+		docs\TEST_USERS.txt = docs\TEST_USERS.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repository", "repository", "{D7D181F8-6769-4B52-83D9-8BB6E1B73253}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		build-all.ps1 = build-all.ps1
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+		start-dev.ps1 = start-dev.ps1
+		stop-dev.ps1 = stop-dev.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,8 +147,8 @@ Global
 		{3812C4CF-7FD2-4EAE-A17B-F3D39A86F489} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{EC3637DA-81C4-41D0-B2E1-579170EF2AA2} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{6BC20616-E205-4E7C-9C75-A1D0D8DF8CC8} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{96C79CE6-0AF9-400A-AA15-CAE21CEFCED9} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{5C944DB5-4E3F-4C83-9D39-435AB266B322} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{96C79CE6-0AF9-400A-AA15-CAE21CEFCED9} = {A6A6A9E1-5EBF-43C1-81C7-43D88EFDD601}
+		{5C944DB5-4E3F-4C83-9D39-435AB266B322} = {A6A6A9E1-5EBF-43C1-81C7-43D88EFDD601}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFB1C1D7-4B03-4214-8FAB-CDA826F8211E}
