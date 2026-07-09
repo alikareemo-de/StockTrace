@@ -1,15 +1,15 @@
-﻿using StockTrace.Api.Infrastructure;
-using StockTrace.Api.Realtime;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using StockTrace.Api.Auth;
 using StockTrace.Api.Configuration;
+using StockTrace.Api.Infrastructure;
+using StockTrace.Api.Realtime;
 using StockTrace.Application;
 using StockTrace.Application.Inventory;
 using StockTrace.Infrastructure;
 using StockTrace.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -129,9 +129,6 @@ if (app.Configuration.GetValue<bool>("Database:InitializeOnStartup"))
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
-
-//app.UseSwagger();
-//app.UseSwaggerUI();
 
 app.UseCors(CorsOptions.PolicyName);
 app.UseAuthentication();
