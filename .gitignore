@@ -490,3 +490,11 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Local helper scripts - keep on developer machines only
+build-all.ps1
+start-dev.ps1
+stop-dev.ps1
+
+# Local documentation folder - keep on developer machines only
+docs/
