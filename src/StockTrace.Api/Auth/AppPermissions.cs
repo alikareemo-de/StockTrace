@@ -17,7 +17,6 @@ public static class AppPermissions
     public const string StockTransfersRead = "StockTransfers.Read";
     public const string StockTransfersCreate = "StockTransfers.Create";
     public const string ReportsRead = "Reports.Read";
-    public const string ReportsExport = "Reports.Export";
     public const string RealtimeRead = "Realtime.Read";
 
     public static readonly string[] All =
@@ -32,7 +31,6 @@ public static class AppPermissions
         StockTransfersRead,
         StockTransfersCreate,
         ReportsRead,
-        ReportsExport,
         RealtimeRead
     ];
 }

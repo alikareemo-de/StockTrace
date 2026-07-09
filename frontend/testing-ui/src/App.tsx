@@ -154,7 +154,7 @@ function hasPagePermission(page: PageKey, user: AuthUser): boolean {
   if (page === 'purchases') return permissions.includes(Permissions.PurchaseReceiptsRead) || permissions.includes(Permissions.PurchaseReceiptsCreate);
   if (page === 'sales') return permissions.includes(Permissions.SalesRead) || permissions.includes(Permissions.SalesCreate);
   if (page === 'transfers') return permissions.includes(Permissions.StockTransfersRead) || permissions.includes(Permissions.StockTransfersCreate);
-  if (page === 'reports') return permissions.includes(Permissions.ReportsRead) || permissions.includes(Permissions.ReportsExport);
+  if (page === 'reports') return permissions.includes(Permissions.ReportsRead);
   if (page === 'realtime') return permissions.includes(Permissions.RealtimeRead);
   return false;
 }

@@ -29,31 +29,6 @@ export async function apiPut<T>(url: string, body: unknown): Promise<ApiResult<T
   return send<T>(url, { method: 'PUT', headers: authHeaders(jsonHeaders), body: JSON.stringify(body) });
 }
 
-export async function apiDownload(url: string): Promise<ApiResult<Blob>> {
-  try {
-    const response = await fetch(apiUrl(url), { method: 'GET', headers: authHeaders({ Accept: '*/*' }) });
-    if (!response.ok) {
-      if (response.status === 401) window.dispatchEvent(new Event('stocktrace:unauthorized'));
-      const text = await response.text();
-      const payload = text ? JSON.parse(text) : null;
-      return {
-        ok: false,
-        status: response.status,
-        error: formatProblem(payload) || response.statusText,
-        details: payload
-      };
-    }
-
-    return { ok: true, status: response.status, data: await response.blob() };
-  } catch (error) {
-    return {
-      ok: false,
-      status: 0,
-      error: error instanceof Error ? error.message : 'Download failed.'
-    };
-  }
-}
-
 async function send<T>(url: string, init: RequestInit): Promise<ApiResult<T>> {
   try {
     const response = await fetch(apiUrl(url), init);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ApiResult } from '../api/client';
-import { exportInventoryMovements, getInventoryMovements } from '../api/services';
+import { getInventoryMovements } from '../api/services';
 import { Field, ProductSelect, Select, SupplierSelect, WarehouseSelect } from '../components/FormControls';
 import { ResultPanel } from '../components/ResultPanel';
 import { Section } from '../components/Section';
@@ -20,10 +20,6 @@ export function ReportsPage({ data, permissions }: { data: MasterData; permissio
 
   async function runReport() {
     setResult(await getInventoryMovements(reportParams()));
-  }
-
-  async function exportReport() {
-    setResult(await exportInventoryMovements(reportParams()));
   }
 
   function reportParams() {
@@ -58,7 +54,6 @@ export function ReportsPage({ data, permissions }: { data: MasterData; permissio
         <Field label="Page Number" type="number" value={pageNumber} onChange={setPageNumber} />
         <Field label="Page Size" type="number" value={pageSize} onChange={setPageSize} />
         {permissions.includes(Permissions.ReportsRead) && <button onClick={runReport}>Run report</button>}
-        {permissions.includes(Permissions.ReportsExport) && <button onClick={exportReport}>Export Excel</button>}
       </div>
       <ResultPanel result={result} data={data} />
     </Section>

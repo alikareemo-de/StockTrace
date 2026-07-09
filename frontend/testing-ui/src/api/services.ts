@@ -1,4 +1,4 @@
-﻿import { apiDownload, apiGet, apiPost, apiPut, setAccessToken } from './client';
+import { apiGet, apiPost, apiPut, setAccessToken } from './client';
 import type {
   AuthUser,
   Category,
@@ -94,25 +94,6 @@ export function getInventoryMovements(params: Record<string, string>) {
   });
 
   return apiGet(`/api/reports/inventory-movements?${query}`);
-}
-
-export async function exportInventoryMovements(params: Record<string, string>) {
-  const query = new URLSearchParams();
-  Object.entries(params).forEach(([key, value]) => {
-    if (value) query.set(key, value);
-  });
-
-  const result = await apiDownload(`/api/reports/inventory-movements/export?${query}`);
-  if (result.ok) {
-    const url = URL.createObjectURL(result.data);
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = `inventory-movements-${new Date().toISOString().slice(0, 19).replace(/\D/g, '')}.xlsx`;
-    anchor.click();
-    URL.revokeObjectURL(url);
-  }
-
-  return result;
 }
 
 async function unwrap<T>(promise: ReturnType<typeof apiGet<T>>): Promise<T> {

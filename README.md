@@ -8,7 +8,7 @@ Production-oriented inventory module built with ASP.NET Core and Clean Architect
 - Inventory availability by warehouse and product.
 - Sales issuing with FIFO lot allocation and insufficient-stock protection.
 - Stock transfers between warehouses while preserving lot identity and cost.
-- Inventory movement reporting with filtering, paging, Excel export, and SQL indexes for the main query paths.
+- Inventory movement reporting with filtering, paging, and SQL indexes for the main query paths.
 - Real-time stock-change and low-stock notifications through SignalR.
 - JWT authentication, role/permission authorization bearer-token support.
 - Read-only master-data endpoints and warehouse-product low-stock threshold configuration.
@@ -113,6 +113,10 @@ The seed process is idempotent and checks business keys before inserting records
 - Operational documents and ledger records are never soft-deleted. Soft delete applies only to category, product, supplier, and warehouse master data.
 - Soft-deleted master records are filtered explicitly by master-data queries instead of a global EF filter. This intentionally keeps required historical relationships visible in inventory and audit reports.
 
+### Concurrency strategy
+
+`InventoryBalances` is used as the current-stock projection instead of recalculating availability from the full movement ledger on every sale. This keeps allocation fast and gives SQL Server a small, precise set of rows to lock. Sales and transfers read candidate balance rows with `UPDLOCK`, so concurrent requests for the same warehouse/product/lot are serialized at the database row level. If two users try to sell the same limited quantity at the same time, the first transaction consumes the stock; the second waits, rechecks the updated balance, and fails with `409 Conflict` if the quantity is no longer available. This prevents overselling and negative stock.
+
 ### Important indexes
 
 - Unique product SKU, supplier code, warehouse code, and document numbers protect business identifiers.
@@ -128,7 +132,7 @@ The seed process is idempotent and checks business keys before inserting records
 All API endpoints are protected by JWT authentication except `POST /api/auth/login`.
 Swagger supports bearer tokens through the `Authorize` button.
 
-Testing users are configured in `Authentication:TestUsers` inside `src/StockTrace.Api/appsettings.json`, so reviewers can adjust them without changing code. These credentials are for local testing only.
+Testing users are configured in `Authentication:TestUsers` inside `src/StockTrace.Api/appsettings.json`, so reviewers can adjust them without changing code. These credentials are demo credentials for local testing and technical evaluation only. Do not use these passwords, JWT signing keys, or any local `TEST_USERS.txt` content in production. Production secrets must be moved to environment variables, ASP.NET Core User Secrets for local development, or a production Secret Manager.
 
 Default users:
 
@@ -165,7 +169,6 @@ Authorization is permission-based. Roles are only a convenient grouping for perm
 | `POST` | `/api/stock-transfers` | Transfer stock between warehouses. |
 | `GET` | `/api/stock-transfers/{id}` | Read a transfer and its lot allocations. |
 | `GET` | `/api/reports/inventory-movements` | Read paged inventory movement history. |
-| `GET` | `/api/reports/inventory-movements/export` | Export inventory movement history to Excel. |
 | SignalR | `/hubs/low-stock` | Subscribe to `StockChanged` and `LowStockReached` notifications. |
 
 ## Business rules
@@ -191,7 +194,7 @@ Authorization is permission-based. Roles are only a convenient grouping for perm
 4. Check availability with `GET /api/inventory/availability`.
 5. Create sales with `POST /api/sales`.
 6. Create transfers with `POST /api/stock-transfers`.
-7. Run or export inventory movement reports.
+7. Run inventory movement reports.
 8. Connect the testing UI realtime page to verify SignalR stock-change and low-stock events.
 
 ## Configuration

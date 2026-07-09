@@ -54,7 +54,6 @@ export const Permissions = {
   StockTransfersRead: 'StockTransfers.Read',
   StockTransfersCreate: 'StockTransfers.Create',
   ReportsRead: 'Reports.Read',
-  ReportsExport: 'Reports.Export',
   RealtimeRead: 'Realtime.Read'
 } as const;
 
